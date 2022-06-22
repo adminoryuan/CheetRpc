@@ -9,12 +9,13 @@ import com.cheet.example.server.RpcImpl;
  */
 public class Client {
     public static void main(String[] args) throws Exception {
+
         CheetRpcClientImpl client=new CheetRpcClientImpl();
         client.Connect("127.0.0.1",8080);
-        Object call = client.Call(RpcImpl.class,"GetRandom", 1, 2);
+        Object call = client.Call(".RpcImpl","GetRandom", 1, 2);
 
         System.out.println(call.toString());
-         call = client.Call(RpcImpl.class,"Add", 1, 2);
+        call = client.Call(".RpcImpl","Add", 1, 2);
 
         System.out.println(call.toString());
 

@@ -24,11 +24,14 @@ public class RegistFunc {
         return func;
     }
     public void Regist(Class cls){
-        String prifix=cls.getName();
+        String names=cls.getCanonicalName();
+        String prifix=names.replaceAll(cls.getPackage().getName(),"");
+        System.out.println(prifix);
         Method[] methods = cls.getMethods();
         for (Method method : methods) {
-            MethodMap.put(prifix+"_"+method.getName(),method);
-            System.out.println("Regist "+prifix+method.getName());
+            MethodMap.put(prifix+"."+method.getName(),method);
+            System.out.println(prifix+"."+method.getName());
+            System.out.println("Regist "+prifix+"."+method.getName());
         }
     }
 

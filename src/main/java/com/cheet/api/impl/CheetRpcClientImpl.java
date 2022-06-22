@@ -32,10 +32,11 @@ public class CheetRpcClientImpl implements CheetRpcClient {
     }
 
     @Override
-    public Object Call(Class cls,String method,Object... arg) {
+    public Object Call(String prifix,String method,Object... arg) {
         try {
 
-            String callName=String.format("%s_%s",cls.getName(),method);
+
+            String callName=String.format("%s.%s",prifix,method);
 
             return client.CallRemote(callName,arg);
 

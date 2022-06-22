@@ -10,5 +10,5 @@ public interface CheetRpcClient {
 
     void Connect(String addr,int port) throws Exception;
 
-    Object Call(Class cls,String method,Object... arg);
+    Object Call(String cls,String method,Object... arg);
 }
