@@ -43,6 +43,6 @@ public class ProvisionMessageEncoder extends MessageToByteEncoder<RpcResponse> {
 
         byteBuf.writeBytes(bytes1);
 
-        System.out.println("发送");
+        System.out.println("发送成功");
     }
 }

@@ -14,10 +14,10 @@ public class Client {
         client.Connect("127.0.0.1",8080);
         Object call = client.Call(".RpcImpl","GetRandom", 1, 2);
 
-        System.out.println(call.toString());
+        System.out.println("res"+call.toString());
         call = client.Call(".RpcImpl","Add", 1, 2);
 
-        System.out.println(call.toString());
+        System.out.println("res"+call.toString());
 
     }
 }

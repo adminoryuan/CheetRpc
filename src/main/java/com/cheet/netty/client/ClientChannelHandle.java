@@ -15,6 +15,6 @@ public class ClientChannelHandle extends ChannelInitializer<SocketChannel> {
 
         socketChannel.pipeline().addLast(new CustomerMessageDecoder());
         socketChannel.pipeline().addLast(new CustomerMessageEncoder());
-        socketChannel.pipeline().addLast(new ClientHandle());
+        socketChannel.pipeline().addLast(ClientHandle.getHandleInstance());
     }
 }
