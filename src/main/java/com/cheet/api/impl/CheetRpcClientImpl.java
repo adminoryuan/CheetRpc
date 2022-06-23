@@ -38,7 +38,7 @@ public class CheetRpcClientImpl implements CheetRpcClient {
 
             String callName=String.format("%s.%s",prifix,method);
 
-            return client.CallRemote(callName,arg);
+            return client.SyncCall(callName,arg);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

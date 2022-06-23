@@ -57,7 +57,7 @@ public class NettyClient {
 
     }
 
-    public Object CallRemote(String method,Object... args) throws InterruptedException {
+    public Object SyncCall(String method,Object... args) throws InterruptedException {
         RpcRequest request=new RpcRequest();
 
         request.setMethod(method);
