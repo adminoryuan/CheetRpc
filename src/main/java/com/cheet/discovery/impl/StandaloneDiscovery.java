@@ -1,6 +1,7 @@
 package com.cheet.discovery.impl;
 
 import com.cheet.discovery.ServerDiscovery;
+import com.cheet.netty.client.NettyClient;
 
 import java.util.List;
 
@@ -10,14 +11,15 @@ import java.util.List;
  */
 public class StandaloneDiscovery implements ServerDiscovery {
 
-    private  String server_addr;
+    private  NettyClient client;
 
-    public StandaloneDiscovery(String server_addr,int port) {
-        this.server_addr=server_addr;
+    public StandaloneDiscovery(String server_addr,int port) throws Exception {
+        client=new NettyClient();
+        client.Dial(server_addr,port);
     }
 
     @Override
-    public String getServerAddr() {
-        return server_addr;
+    public NettyClient getNettyClient() {
+        return client;
     }
 }

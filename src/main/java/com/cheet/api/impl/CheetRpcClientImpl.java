@@ -13,22 +13,23 @@ import java.lang.reflect.Method;
  */
 public class CheetRpcClientImpl implements CheetRpcClient {
 
-    private NettyClient client=new NettyClient();
+    private ServerDiscovery discovery;
 
 
     @Override
     public void Connect(ServerDiscovery discovery) throws Exception {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    client.Dial(discovery.getServerAddr().getAddr(),discovery.getServerAddr().getPort());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        this.discovery=discovery;
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    discovery
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
         Thread.sleep(1000);
     }
 
@@ -37,7 +38,7 @@ public class CheetRpcClientImpl implements CheetRpcClient {
         try {
             String callName=String.format("%s.%s",prifix,method);
 
-            return client.SyncCall(callName,arg);
+            return this.discovery.getNettyClient().SyncCall(callName,arg);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

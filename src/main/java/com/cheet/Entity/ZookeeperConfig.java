@@ -1,5 +1,6 @@
 package com.cheet.Entity;
 
+import com.cheet.discovery.Loadbalancing;
 import lombok.Builder;
 
 /**
@@ -13,4 +14,5 @@ public class ZookeeperConfig {
     private String ServerNode;
     private String UserName;
     private String Password;
+    private Loadbalancing load;
 }
