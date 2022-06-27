@@ -1,6 +1,7 @@
 package com.cheet.api.impl;
 
 import com.cheet.api.CheetRpcClient;
+import com.cheet.discovery.ServerDiscovery;
 import com.cheet.netty.client.NettyClient;
 import io.netty.channel.Channel;
 
@@ -16,13 +17,13 @@ public class CheetRpcClientImpl implements CheetRpcClient {
 
 
     @Override
-    public void Connect(String addr,int port) throws Exception {
+    public void Connect(ServerDiscovery discovery) throws Exception {
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try {
-                    client.Dial(addr, port);
+                    client.Dial(discovery.getServerAddr().getAddr(),discovery.getServerAddr().getPort());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -34,8 +35,6 @@ public class CheetRpcClientImpl implements CheetRpcClient {
     @Override
     public Object Call(String prifix,String method,Object... arg) {
         try {
-
-
             String callName=String.format("%s.%s",prifix,method);
 
             return client.SyncCall(callName,arg);

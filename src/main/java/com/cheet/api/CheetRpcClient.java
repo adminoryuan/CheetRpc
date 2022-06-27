@@ -1,5 +1,7 @@
 package com.cheet.api;
 
+import com.cheet.discovery.ServerDiscovery;
+
 import java.lang.reflect.Method;
 
 /**
@@ -8,7 +10,7 @@ import java.lang.reflect.Method;
  */
 public interface CheetRpcClient {
 
-    void Connect(String addr,int port) throws Exception;
+    void Connect(ServerDiscovery discovery) throws Exception;
 
     Object Call(String cls,String method,Object... arg);
 }

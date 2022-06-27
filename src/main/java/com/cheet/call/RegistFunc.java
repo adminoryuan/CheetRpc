@@ -30,8 +30,7 @@ public class RegistFunc {
         Method[] methods = cls.getMethods();
         for (Method method : methods) {
             MethodMap.put(prifix+"."+method.getName(),method);
-            System.out.println(prifix+"."+method.getName());
-            System.out.println("Regist "+prifix+"."+method.getName());
+
         }
     }
 
