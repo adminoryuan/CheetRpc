@@ -1,9 +1,14 @@
 package com.cheet.api.impl;
 
+import com.cheet.Entity.RegZkConfig;
+import com.cheet.Entity.ZookeeperConfig;
 import com.cheet.api.CheetRpcServer;
 import com.cheet.call.RegistFunc;
 import com.cheet.netty.NettyServer;
+import lombok.SneakyThrows;
+import org.apache.zookeeper.*;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +30,41 @@ public class CheetRpcServerImpl implements CheetRpcServer {
     }
 
 
-
-
     @Override
     public void Rigist(Class cls) {
 
         func.Regist(cls);
+    }
+
+    /**
+     * 将当前节点加入zookeeper 中
+     * @param config
+     */
+    @Override
+    public void AddZkdiscovery(RegZkConfig config) {
+        String zkAddr = config.getZkAddr();
+
+        String serverNode = config.getRpcNode();
+
+        try {
+            ZooKeeper zooKeeper = new ZooKeeper(config.getZkAddr(), 2000, new Watcher() {
+                @Override
+                public void process(WatchedEvent watchedEvent) {
+
+                }
+            });
+
+            if (zooKeeper.exists(serverNode,false)==null){
+                zooKeeper.create(serverNode,config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+            }
+            System.out.println(serverNode+"/A");
+            zooKeeper.create(serverNode+"/A",config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+
+    } catch (IOException | KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override

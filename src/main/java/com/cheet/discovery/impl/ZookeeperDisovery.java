@@ -9,6 +9,7 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,9 +47,18 @@ public class ZookeeperDisovery implements ServerDiscovery {
 
             System.out.println(list.size());
             for (String s : list) {
-                System.out.println(s);
+
                 NettyClient nettyClient = new NettyClient();
-                String[] split = s.split(":");
+
+                Stat stat=new Stat();
+
+                byte[] data = zooKeeper.getData(config.getServerNode()+"/"+s, false, stat);
+
+                String addr=new String(data);
+
+                System.out.println(addr);
+
+                String[] split = addr.split(":");
                 nettyClient.Dial(split[0],Integer.valueOf(split[1]));
 
                 roud.AddRpcNode(nettyClient);

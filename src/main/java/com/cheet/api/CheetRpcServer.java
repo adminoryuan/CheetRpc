@@ -1,5 +1,8 @@
 package com.cheet.api;
 
+import com.cheet.Entity.RegZkConfig;
+import com.cheet.Entity.ZookeeperConfig;
+
 /**
  * @author yh
  * @date 2022/6/20 下午7:53
@@ -7,10 +10,12 @@ package com.cheet.api;
 public interface CheetRpcServer {
 
     /**
-     * 穿入一个rpc 基类
+     * 穿入一个rpc 服务类
      * @param cls
      */
     void Rigist(Class cls);
+
+    void AddZkdiscovery(RegZkConfig config);
 
     void ListenServer(int port);
 
