@@ -7,15 +7,6 @@ import com.cheet.netty.client.NettyClient;
  * @author yh
  * @date 2022/6/28 下午2:04
  */
-public class Hashbalancing extends AbstLoadbalancing {
+public class Hashbalancing {
 
-    @Override
-    public NettyClient GetVistRpcNode() {
-        return null;
-    }
-
-    @Override
-    public void AddRpcNode(NettyClient client) {
-        list.add(client);
-    }
 }
