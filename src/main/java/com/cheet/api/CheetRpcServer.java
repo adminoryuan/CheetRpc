@@ -13,4 +13,6 @@ public interface CheetRpcServer {
     void Rigist(Class cls);
 
     void ListenServer(int port);
+
+    void Heartbeat(int WriteTime,int ReadOutTime,int ALL_READTIME);
 }

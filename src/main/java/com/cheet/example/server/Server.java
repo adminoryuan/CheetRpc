@@ -16,6 +16,7 @@ public class Server {
         CheetRpcServer ser=new CheetRpcServerImpl();
         ser.Rigist(RpcImpl.class);
 
-        ser.ListenServer(9992);
+        ser.Heartbeat(1,1,1);
+        ser.ListenServer(9991);
     }
 }

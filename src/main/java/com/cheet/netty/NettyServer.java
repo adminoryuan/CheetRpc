@@ -15,15 +15,21 @@ public class NettyServer {
     public NettyServer() {
 
     }
+    ProvisionChannelHandle provisionChannelHandle = new ProvisionChannelHandle();
+    public void Heartbeat(int WriteTime, int ReadOutTime, int ALL_READTIME) {
+        provisionChannelHandle.Heartbeat(WriteTime,ReadOutTime,ALL_READTIME);
+    }
 
     public void Run(int Port){
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+
+
         try {
             ServerBootstrap b = new ServerBootstrap(); // (2)
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class) // (3)
-                    .childHandler(new ProvisionChannelHandle())  //(4)
+                    .childHandler(provisionChannelHandle)  //(4)
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 

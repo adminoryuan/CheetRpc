@@ -17,25 +17,11 @@ public class Client {
 
         CheetRpcClientImpl client=new CheetRpcClientImpl();
 
-        ZookeeperConfig rpc_zk = ZookeeperConfig.builder().load(new Pollingbalancing())
-                .ServerNode("/rpc_zk")
-                .zkAddr("127.0.0.1:9000").build();
-
-        client.SetDiscovery(new ZookeeperDisovery(rpc_zk));
+        client.SetDiscovery(new StandaloneDiscovery("127.0.0.1",9991));
 
 
-        Object call = client.Call(".RpcImpl","GetRandom", 1, 2);
-
-        System.out.println(call.toString());
-
-         call = client.Call(".RpcImpl","Add", 1, 2);
-
-        System.out.println(call.toString());
 
 
-        call = client.Call(".RpcImpl","Add", 1, 2);
-
-        System.out.println(call.toString());
 
     }
 }

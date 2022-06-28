@@ -22,7 +22,6 @@ public class CheetRpcServerImpl implements CheetRpcServer {
 
     public CheetRpcServerImpl(){
         server=new NettyServer();
-
     }
 
 
@@ -37,5 +36,10 @@ public class CheetRpcServerImpl implements CheetRpcServer {
     @Override
     public void ListenServer(int port) {
         server.Run(port);
+    }
+
+    @Override
+    public void Heartbeat(int WriteTime, int ReadOutTime, int ALL_READTIME) {
+
     }
 }

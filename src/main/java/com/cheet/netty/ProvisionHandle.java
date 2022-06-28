@@ -6,6 +6,8 @@ import com.cheet.call.ExecFunc;
 import com.cheet.call.ExecFuncImpl;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 
 /**
  * @author yh
@@ -16,6 +18,23 @@ public class ProvisionHandle extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
+    }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleStateEvent evt1 = (IdleStateEvent) evt;
+            if (evt1.state()== IdleState.WRITER_IDLE){
+                System.out.println(ctx.channel().remoteAddress());
+
+                System.out.println("超时已经断开链接");
+
+                ctx.channel().close();
+            }
+
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.cheet.call.OnRpcRevice;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 
 import java.util.concurrent.ExecutionException;
 
@@ -31,6 +33,19 @@ public class ClientHandle extends ChannelInboundHandlerAdapter {
 //
 //    }
 
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleStateEvent evt1 = (IdleStateEvent) evt;
+            if (evt1.state()== IdleState.WRITER_IDLE){
+                System.out.println("读超时");
+            }
+
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
+    }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
