@@ -23,9 +23,9 @@ public class ProvisionHandle extends ChannelInboundHandlerAdapter {
         RpcRequest msg1 = (RpcRequest) msg;
 
 
-        System.out.println(msg1.getRequestId());
         Object res = exec.Exec(msg1.getMethod(),msg1.getArgs());
 
+        System.out.println(res);
         RpcResponse response=new RpcResponse();
 
         response.setRequestId(msg1.getRequestId());

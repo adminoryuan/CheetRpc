@@ -10,11 +10,18 @@ import io.netty.channel.socket.SocketChannel;
  * @date 2022/6/21 下午7:38
  */
 public class ClientChannelHandle extends ChannelInitializer<SocketChannel> {
+
+    private ClientHandle handle;
+
+    public ClientChannelHandle(ClientHandle handle) {
+        this.handle = handle;
+    }
+
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
 
         socketChannel.pipeline().addLast(new CustomerMessageDecoder());
         socketChannel.pipeline().addLast(new CustomerMessageEncoder());
-        socketChannel.pipeline().addLast(ClientHandle.getHandleInstance());
+        socketChannel.pipeline().addLast(handle);
     }
 }

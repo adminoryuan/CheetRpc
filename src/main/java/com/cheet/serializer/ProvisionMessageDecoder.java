@@ -19,10 +19,10 @@ public class ProvisionMessageDecoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> list) throws Exception {
         int redLen=0;
         //
-        System.out.println(in.readableBytes());
+
         if (in.readableBytes()>4) {
              redLen = in.readInt();
-             System.out.println(redLen);
+
         }
 
         if (redLen>4 && in.readableBytes()>=redLen){
@@ -33,7 +33,7 @@ public class ProvisionMessageDecoder extends ByteToMessageDecoder {
             for (int i=0;i<reqLen;i++){
                 ByteArray[i]=in.readByte();
             }
-            request.setRequestId(new String(ByteArray));
+             request.setRequestId(new String(ByteArray));
 
             int MethodLen=in.readByte();
             ByteArray=new byte[MethodLen];

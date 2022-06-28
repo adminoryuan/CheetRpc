@@ -20,41 +20,29 @@ public class NettyClient {
     public NettyClient() {
 
     }
-    private ClientHandle handle=ClientHandle.getHandleInstance();
+    private ClientHandle handle=new ClientHandle();
 
     private volatile Channel channel;
 
     public void Dial(String addr,int port) throws Exception {
-        EventLoopGroup group = new NioEventLoopGroup();
-        try {
-            Bootstrap bootstrap  = new Bootstrap()
+
+             EventLoopGroup group = new NioEventLoopGroup();
+
+            Bootstrap bootstrap = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
-                    .handler(new ClientChannelHandle());
+                    .handler(new ClientChannelHandle(handle));
             ChannelFuture future = bootstrap.connect(addr, port);
 
-            channel=future.sync().channel();
+            channel = future.sync().channel();
 
 
-//            future.addListener(new ChannelFutureListener() {
-//                @Override
-//                public void operationComplete(ChannelFuture channelFuture) throws Exception {
-//                    channel=channelFuture.channel();
-//                    System.out.println("成功");
-//                }
-//            });
-           // Object write = CallRemote("", 100 , 200);
-           this.channel.closeFuture().sync();
-
-        } catch (Exception e) {
-            throw new Exception("链接错误，请检查ip地址是否正确");
-          //  e.printStackTrace();
-        } finally {
-           group.shutdownGracefully();
-        }
-
-
-
+            channel.closeFuture().addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                    System.out.println("关闭了");
+                }
+            });
     }
 
     public Object SyncCall(String method,Object... args) throws InterruptedException {

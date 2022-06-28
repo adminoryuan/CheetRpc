@@ -17,20 +17,9 @@ public class CheetRpcClientImpl implements CheetRpcClient {
 
 
     @Override
-    public void Connect(ServerDiscovery discovery) throws Exception {
+    public void SetDiscovery(ServerDiscovery discovery) throws Exception {
         this.discovery=discovery;
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                try {
-//                    discovery
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-        Thread.sleep(1000);
+
     }
 
     @Override

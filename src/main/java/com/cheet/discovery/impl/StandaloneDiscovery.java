@@ -16,6 +16,7 @@ public class StandaloneDiscovery implements ServerDiscovery {
     public StandaloneDiscovery(String server_addr,int port) throws Exception {
         client=new NettyClient();
         client.Dial(server_addr,port);
+
     }
 
     @Override

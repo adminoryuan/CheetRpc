@@ -1,6 +1,7 @@
 package com.cheet.netty.client;
 
 import com.cheet.Entity.RpcResponse;
+import com.sun.mail.iap.Response;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -125,15 +126,19 @@ public class SyncFuture<T> implements Future<T> {
 
     @Override
     public T get() {
+        T result=null;
         try {
 
             synchronized (downLatch) {
                 downLatch.await();
+                result=response;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return response;
+        downLatch=new CountDownLatch(1);
+
+        return result;
     }
 
     @Override

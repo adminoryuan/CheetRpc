@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  */
 public interface CheetRpcClient {
 
-    void Connect(ServerDiscovery discovery) throws Exception;
+    void SetDiscovery(ServerDiscovery discovery) throws Exception;
 
     Object Call(String cls,String method,Object... arg);
 }

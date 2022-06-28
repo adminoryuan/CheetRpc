@@ -16,26 +16,25 @@ import java.util.concurrent.ExecutionException;
 public class ClientHandle extends ChannelInboundHandlerAdapter {
     SyncFuture<RpcResponse> syncFuture=new SyncFuture<>();
 
-    private static volatile ClientHandle handle;
+   // private static volatile ClientHandle handle;
 
-    public static ClientHandle getHandleInstance(){
-        if (handle==null){
-            synchronized (ClientHandle.class){
-                handle=new ClientHandle();
-            }
-        }
-        return handle;
-    }
-
-    private ClientHandle(){
-
-    }
+//    public static ClientHandle getHandleInstance(){
+//        if (handle==null){
+//            synchronized (ClientHandle.class){
+//                handle=new ClientHandle();
+//            }
+//        }
+//        return handle;
+//    }
+//
+//    private ClientHandle(){
+//
+//    }
 
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
-      //  syncFuture=new SyncFuture<>();
         super.channelActive(ctx);
     }
 
@@ -57,6 +56,7 @@ public class ClientHandle extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+
         super.channelInactive(ctx);
     }
 }
