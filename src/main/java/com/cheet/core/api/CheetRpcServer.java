@@ -1,7 +1,6 @@
-package com.cheet.api;
+package com.cheet.core.api;
 
 import com.cheet.Entity.RegZkConfig;
-import com.cheet.Entity.ZookeeperConfig;
 
 /**
  * @author yh

@@ -2,8 +2,8 @@ package com.cheet.netty;
 
 import com.cheet.Entity.RpcRequest;
 import com.cheet.Entity.RpcResponse;
-import com.cheet.call.ExecFunc;
-import com.cheet.call.ExecFuncImpl;
+import com.cheet.core.call.ExecFunc;
+import com.cheet.core.call.ExecFuncImpl;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;

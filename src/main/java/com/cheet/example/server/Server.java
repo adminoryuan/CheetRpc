@@ -1,8 +1,8 @@
 package com.cheet.example.server;
 
 import com.cheet.Entity.RegZkConfig;
-import com.cheet.api.CheetRpcServer;
-import com.cheet.api.impl.CheetRpcServerImpl;
+import com.cheet.core.api.CheetRpcServer;
+import com.cheet.core.api.impl.CheetRpcServerImpl;
 
 /**
  * @author yh

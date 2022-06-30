@@ -1,11 +1,7 @@
-package com.cheet.api.impl;
+package com.cheet.core.api.impl;
 
-import com.cheet.api.CheetRpcClient;
+import com.cheet.core.api.CheetRpcClient;
 import com.cheet.discovery.ServerDiscovery;
-import com.cheet.netty.client.NettyClient;
-import io.netty.channel.Channel;
-
-import java.lang.reflect.Method;
 
 /**
  * @author yh

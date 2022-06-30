@@ -1,14 +1,12 @@
 package com.cheet.discovery;
 
-import com.cheet.api.CheetRpcClient;
+import com.cheet.core.api.CheetRpcClient;
 import com.cheet.netty.client.NettyClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**

@@ -1,8 +1,6 @@
-package com.cheet.api;
+package com.cheet.core.api;
 
 import com.cheet.discovery.ServerDiscovery;
-
-import java.lang.reflect.Method;
 
 /**
  * @author yh

@@ -1,12 +1,9 @@
 package com.cheet.example.cli;
 
 import com.cheet.Entity.ZookeeperConfig;
-import com.cheet.api.impl.CheetRpcClientImpl;
-import com.cheet.discovery.impl.StandaloneDiscovery;
+import com.cheet.core.api.impl.CheetRpcClientImpl;
 import com.cheet.discovery.impl.ZookeeperDisovery;
 import com.cheet.discovery.impl.cing.Pollingbalancing;
-import com.cheet.discovery.impl.cing.Randombalancing;
-import com.cheet.example.server.RpcImpl;
 
 /**
  * @author yh
