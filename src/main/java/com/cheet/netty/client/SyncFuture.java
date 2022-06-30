@@ -130,7 +130,7 @@ public class SyncFuture<T> implements Future<T> {
         try {
 
             synchronized (downLatch) {
-                downLatch.await();
+                downLatch.await(3,TimeUnit.SECONDS);
                 result=response;
             }
         } catch (InterruptedException e) {

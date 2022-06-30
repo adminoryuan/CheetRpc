@@ -15,14 +15,14 @@ public class Server {
         ser.Rigist(RpcImpl.class);
         RegZkConfig rpcTest = RegZkConfig.builder()
                 .RpcNode("/rpc2")
-                .CurrNodeName("A")
+                .CurrNodeName("E")
                 .zkAddr("127.0.0.1:9000")
-                .Curraddr("127.0.0.1:9992").build();
+                .Curraddr("127.0.0.1:9991").build();
 
         ser.AddZkdiscovery(rpcTest);
 
         ser.Heartbeat(5000,10,5000);
 
-        ser.ListenServer(9992);
+        ser.ListenServer(9991);
     }
 }

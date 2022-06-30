@@ -29,6 +29,9 @@ public abstract class AbstLoadbalancing {
 
     public void NodeChange() {
         writeLock.writeLock().lock();
+        for (NettyClient client : list) {
+            client.Stop();
+        }
         list=new ArrayList<>();
     }
 

@@ -30,6 +30,13 @@ public class Pollingbalancing extends AbstLoadbalancing {
         return client;
     }
 
+
+    @Override
+    public void NodeChangeBegin() {
+        index=0;
+        super.NodeChangeBegin();
+    }
+
     @Override
     public void AddRpcNode(NettyClient client) {
 

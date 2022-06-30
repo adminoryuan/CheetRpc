@@ -30,8 +30,8 @@ public class Client {
             Object call = client.Call(".RpcImpl", "GetRandom", 1, 2);
 
 
-
-            Thread.sleep(1000);
+            System.out.println(call);
+            Thread.sleep(3000);
         }
 
 

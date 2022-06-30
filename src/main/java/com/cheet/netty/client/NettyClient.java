@@ -20,6 +20,9 @@ public class NettyClient {
     }
     private ClientHandle handle=new ClientHandle();
 
+    public void Stop(){
+        channel.close();
+    }
     private volatile Channel channel;
 
     public void Dial(String addr,int port){
@@ -32,7 +35,7 @@ public class NettyClient {
                     .handler(new ClientChannelHandle(handle));
             ChannelFuture future = bootstrap.connect(addr, port);
 
-        System.out.println("start..");
+
         try {
             channel = future.sync().channel();
         } catch (InterruptedException e) {
@@ -40,7 +43,7 @@ public class NettyClient {
         }
         System.out.println("");
 
-        System.out.println("ok");
+
         channel.closeFuture().addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture channelFuture) throws Exception {

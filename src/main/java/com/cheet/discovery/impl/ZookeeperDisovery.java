@@ -40,7 +40,7 @@ public class ZookeeperDisovery implements ServerDiscovery {
 
     private  void MonitorZkNode() throws InterruptedException, KeeperException {
         while (true) {
-            CountDownLatch downLatch = new CountDownLatch(1);
+           final CountDownLatch downLatch = new CountDownLatch(1);
 
             zooKeeper.getChildren(zkServerAddr.getServerNode(), new Watcher() {
                 @SneakyThrows
@@ -50,7 +50,7 @@ public class ZookeeperDisovery implements ServerDiscovery {
                     if (watchedEvent.getType() != null) {
                         roud.NodeChange();
                         List<String> children = zooKeeper.getChildren(zkServerAddr.getServerNode(), true);
-                        System.out.println(children.size());
+                        System.out.println("当前节点"+children.size());
                         for (String child : children) {
 
                             Stat stat=new Stat();
@@ -60,17 +60,21 @@ public class ZookeeperDisovery implements ServerDiscovery {
 
                             roud.AddRpcNode(getNettyClient(data));
 
-                            System.out.println("添加成功");
+
                         }
 
                         roud.NodeChangeBegin();
-                        System.out.println("完毕");
+
                         downLatch.countDown();
+
                     }
                 }
             });
+
             synchronized(downLatch) {
-                downLatch.wait();
+
+                downLatch.await();
+
             }
 
         }
@@ -81,7 +85,7 @@ public class ZookeeperDisovery implements ServerDiscovery {
 
         String addr=new String(data);
 
-        System.out.println(addr);
+
         String[] split = addr.split(":");
 
         nettyClient.Dial(split[0],Integer.valueOf(split[1]));

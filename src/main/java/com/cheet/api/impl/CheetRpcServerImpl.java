@@ -22,6 +22,7 @@ public class CheetRpcServerImpl implements CheetRpcServer {
 
     private NettyServer server;
 
+    private RegZkConfig config;
 
     RegistFunc func=RegistFunc.getInstance();
 
@@ -42,6 +43,10 @@ public class CheetRpcServerImpl implements CheetRpcServer {
      */
     @Override
     public void AddZkdiscovery(RegZkConfig config) {
+        this.config=config;
+    }
+
+    private void ZkDisovery(){
         String zkAddr = config.getZkAddr();
 
         String serverNode = config.getRpcNode();
@@ -60,16 +65,31 @@ public class CheetRpcServerImpl implements CheetRpcServer {
             }
             zooKeeper.create(serverNode+"/"+config.getCurrNodeName(),config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 
-    } catch (IOException | KeeperException | InterruptedException e) {
+        } catch (IOException | KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
-
     @Override
     public void ListenServer(int port) {
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ZkDisovery();
+            }
+        }).start();
         server.Run(port);
+
+
+
+
+
     }
 
     @Override
