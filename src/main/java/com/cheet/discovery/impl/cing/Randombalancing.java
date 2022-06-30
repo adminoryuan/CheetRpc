@@ -15,16 +15,27 @@ import java.util.Random;
 public class Randombalancing extends AbstLoadbalancing {
 
     private Random random=new Random();
+
+
+
+
     @Override
     public NettyClient GetVistRpcNode() {
 
+        writeLock.readLock().lock();
+
         int i = random.nextInt(list.size());
 
-        return list.get(i);
+        NettyClient client = list.get(i);
+
+        writeLock.readLock().unlock();
+
+        return client;
     }
 
     @Override
     public void AddRpcNode(NettyClient client) {
+        System.out.println("添加");
         list.add(client);
     }
 }

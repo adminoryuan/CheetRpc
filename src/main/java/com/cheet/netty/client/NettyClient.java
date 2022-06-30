@@ -1,8 +1,6 @@
 package com.cheet.netty.client;
 
 import com.cheet.Entity.RpcRequest;
-import com.cheet.Entity.RpcResponse;
-import com.cheet.call.OnRpcRevice;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -24,9 +22,9 @@ public class NettyClient {
 
     private volatile Channel channel;
 
-    public void Dial(String addr,int port) throws Exception {
+    public void Dial(String addr,int port){
 
-             EventLoopGroup group = new NioEventLoopGroup();
+            EventLoopGroup group = new NioEventLoopGroup();
 
             Bootstrap bootstrap = new Bootstrap()
                     .group(group)
@@ -34,15 +32,22 @@ public class NettyClient {
                     .handler(new ClientChannelHandle(handle));
             ChannelFuture future = bootstrap.connect(addr, port);
 
+        System.out.println("start..");
+        try {
             channel = future.sync().channel();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("");
 
-
-            channel.closeFuture().addListener(new ChannelFutureListener() {
+        System.out.println("ok");
+        channel.closeFuture().addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture channelFuture) throws Exception {
                     System.out.println("关闭了");
                 }
             });
+
     }
 
     public Object SyncCall(String method,Object... args) throws InterruptedException {

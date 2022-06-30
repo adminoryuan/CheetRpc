@@ -55,10 +55,10 @@ public class CheetRpcServerImpl implements CheetRpcServer {
             });
 
             if (zooKeeper.exists(serverNode,false)==null){
-                zooKeeper.create(serverNode,config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+                System.out.println("增加主节点");
+                zooKeeper.create(serverNode,config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             }
-            System.out.println(serverNode+"/A");
-            zooKeeper.create(serverNode+"/A",config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+            zooKeeper.create(serverNode+"/"+config.getCurrNodeName(),config.getCurraddr().getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 
     } catch (IOException | KeeperException | InterruptedException e) {
             e.printStackTrace();

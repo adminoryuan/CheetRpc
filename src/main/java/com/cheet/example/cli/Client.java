@@ -19,24 +19,20 @@ public class Client {
 
         //load () 选择负载均衡算法
         ZookeeperConfig rpc_zk = ZookeeperConfig.builder().load(new Pollingbalancing())
-                .ServerNode("/rpc")
+                .ServerNode("/rpc2")
                 .zkAddr("127.0.0.1:9000").build();
 
         client.SetDiscovery(new ZookeeperDisovery(rpc_zk));
 
 
-        Object call = client.Call(".RpcImpl","GetRandom", 1, 2);
+        for (;;) {
 
-        System.out.println(call.toString());
-
-        call = client.Call(".RpcImpl","Add", 1, 2);
-
-        System.out.println(call.toString());
+            Object call = client.Call(".RpcImpl", "GetRandom", 1, 2);
 
 
-        call = client.Call(".RpcImpl","Add", 1, 2);
 
-        System.out.println(call.toString());
+            Thread.sleep(1000);
+        }
 
 
 

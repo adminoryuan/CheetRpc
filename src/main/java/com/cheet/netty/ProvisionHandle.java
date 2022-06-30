@@ -29,7 +29,7 @@ public class ProvisionHandle extends ChannelInboundHandlerAdapter {
 
                 System.out.println("超时已经断开链接");
 
-                ctx.channel().close();
+               // ctx.channel().close();
             }
 
         } else {

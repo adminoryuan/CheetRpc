@@ -14,15 +14,15 @@ public class Server {
         CheetRpcServer ser=new CheetRpcServerImpl();
         ser.Rigist(RpcImpl.class);
         RegZkConfig rpcTest = RegZkConfig.builder()
-                .RpcNode("/rpc")
-                .CurrNodeName("C")
+                .RpcNode("/rpc2")
+                .CurrNodeName("A")
                 .zkAddr("127.0.0.1:9000")
-                .Curraddr("127.0.0.1:9991").build();
-
+                .Curraddr("127.0.0.1:9992").build();
 
         ser.AddZkdiscovery(rpcTest);
 
-        ser.Heartbeat(1,1,1);
-        ser.ListenServer(9991);
+        ser.Heartbeat(5000,10,5000);
+
+        ser.ListenServer(9992);
     }
 }
