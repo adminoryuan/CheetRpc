@@ -11,22 +11,7 @@ import io.netty.handler.timeout.IdleStateEvent;
  * @date 2022/6/20 下午8:32
  */
 public class ClientHandle extends ChannelInboundHandlerAdapter {
-    SyncFuture<RpcResponse> syncFuture=new SyncFuture<>();
-
-   // private static volatile ClientHandle handle;
-
-//    public static ClientHandle getHandleInstance(){
-//        if (handle==null){
-//            synchronized (ClientHandle.class){
-//                handle=new ClientHandle();
-//            }
-//        }
-//        return handle;
-//    }
-//
-//    private ClientHandle(){
-//
-//    }
+    SyncFuture<RpcResponse> syncFuture=new SyncFuture<>(); //初始化同步器
 
 
     @Override
@@ -54,13 +39,17 @@ public class ClientHandle extends ChannelInboundHandlerAdapter {
 
         RpcResponse msg1 =(RpcResponse) msg;
 
-        syncFuture.setResponse(msg1);
+        syncFuture.setResponse(msg1); //将消息放入同步器
 
         super.channelRead(ctx, msg);
     }
 
+    /**
+     *
+     * @return
+     */
     public Object Call() {
-
+        //阻塞等待消息响应
         return syncFuture.get().getData();
     }
 

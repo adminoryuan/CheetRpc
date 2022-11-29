@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * @author yh
  * @date 2022/6/27 下午8:16
+ * 单节点注册中心
  */
 public class StandaloneDiscovery implements ServerDiscovery {
 

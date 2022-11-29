@@ -12,7 +12,7 @@ import com.cheet.core.api.impl.CheetRpcServerImpl;
 public class Server {
     public static void main(String[] args) {
         CheetRpcServer ser=new CheetRpcServerImpl();
-        ser.Rigist(RpcImpl.class);
+        ser.Rigist(RpcImpl.class); //注册rpc 函数
         RegZkConfig rpcTest = RegZkConfig.builder()
                 .RpcNode("/rpc2")
                 .CurrNodeName("E")

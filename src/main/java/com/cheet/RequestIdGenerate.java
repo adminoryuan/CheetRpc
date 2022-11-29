@@ -13,6 +13,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
     public class RequestIdGenerate {
         private static ReadWriteLock reentrantLockew= new ReentrantReadWriteLock();
         static byte reqid=0;
+
+        /**
+         * 生成rpc 编号
+         * @return
+         */
         public static synchronized byte getRequestId(){
            if (reqid==Byte.MAX_VALUE){
                reqid=1;

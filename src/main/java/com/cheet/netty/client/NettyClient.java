@@ -25,6 +25,11 @@ public class NettyClient {
     }
     private volatile Channel channel;
 
+    /**
+     * 链接目标服务
+     * @param addr ip地址
+     * @param port 端口号
+     */
     public void Dial(String addr,int port){
 
             EventLoopGroup group = new NioEventLoopGroup();
@@ -41,7 +46,7 @@ public class NettyClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("");
+
 
 
         channel.closeFuture().addListener(new ChannelFutureListener() {
@@ -53,7 +58,15 @@ public class NettyClient {
 
     }
 
+    /**
+     * 执行远程调用
+     * @param method 调用的方法
+     * @param args 调用时传参数
+     * @return
+     * @throws InterruptedException
+     */
     public Object SyncCall(String method,Object... args) throws InterruptedException {
+
         RpcRequest request=new RpcRequest();
 
         request.setMethod(method);
@@ -61,6 +74,7 @@ public class NettyClient {
         request.setArgs(args);
 
         request.setMethodLen((byte)2);
+
 
         this.channel.writeAndFlush(request);
 

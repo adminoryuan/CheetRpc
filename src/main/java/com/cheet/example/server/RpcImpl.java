@@ -7,7 +7,6 @@ package com.cheet.example.server;
 
 public class RpcImpl{
 
-
     public int GetRandom(int a,int b){
       return   a-b;
     }

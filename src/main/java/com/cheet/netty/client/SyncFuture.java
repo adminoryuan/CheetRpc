@@ -12,12 +12,16 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author yh
  * @date 2022/6/23 上午9:48
+ * 同步器
  */
 public class SyncFuture<T> implements Future<T> {
-
+    /**
+     * 通过CountDownLatch 来实现同步
+     */
     private CountDownLatch downLatch=new CountDownLatch(1);
 
     private T response;
+
 
     @Override
     public boolean isSuccess() {
@@ -54,7 +58,6 @@ public class SyncFuture<T> implements Future<T> {
         return null;
     }
 
-
     @Override
     public Future<T> sync() throws InterruptedException {
         return null;
@@ -75,7 +78,6 @@ public class SyncFuture<T> implements Future<T> {
         return null;
     }
 
-
     @Override
     public boolean await(long l, TimeUnit timeUnit) throws InterruptedException {
         return false;
@@ -95,14 +97,7 @@ public class SyncFuture<T> implements Future<T> {
     public boolean awaitUninterruptibly(long l) {
         return false;
     }
-    // 用于设置响应结果，并且做countDown操作，通知请求线程
-    public void setResponse(T response) {
-        this.response = response;
 
-        downLatch.countDown();
-
-
-    }
     @Override
     public T getNow() {
         return null;
@@ -123,6 +118,14 @@ public class SyncFuture<T> implements Future<T> {
         return false;
     }
 
+    // 用于设置响应结果，并且做countDown操作，通知请求线程
+    public void setResponse(T response) {
+        this.response = response;
+
+        downLatch.countDown();
+
+
+    }
     @Override
     public T get() {
         T result=null;

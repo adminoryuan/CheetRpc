@@ -20,43 +20,48 @@ import java.util.concurrent.CountDownLatch;
 /**
  * @author yh
  * @date 2022/6/27 下午8:19
+ * 集群注册中心
  */
 public class ZookeeperDisovery implements ServerDiscovery {
 
-    private static ZookeeperConfig zkServerAddr;
+    private static ZookeeperConfig zkConfig;
 
-    private AbstLoadbalancing roud;
+    private AbstLoadbalancing roud; //负载均衡
 
 
     private ZooKeeper zooKeeper;
     public ZookeeperDisovery(ZookeeperConfig zkConfig) {
-        zkServerAddr=zkConfig;
+        zkConfig=zkConfig;
         roud=zkConfig.getLoad();
 
         InitRoud(zkConfig);
 
     }
 
-
+    /**
+     * 监听zk node 断开等情况
+     * @throws InterruptedException
+     * @throws KeeperException
+     */
     private  void MonitorZkNode() throws InterruptedException, KeeperException {
         while (true) {
            final CountDownLatch downLatch = new CountDownLatch(1);
 
-            zooKeeper.getChildren(zkServerAddr.getServerNode(), new Watcher() {
+            zooKeeper.getChildren(zkConfig.getServerNode(), new Watcher() {
                 @SneakyThrows
                 @Override
                 public void process(WatchedEvent watchedEvent) {
 
                     if (watchedEvent.getType() != null) {
                         roud.NodeChange();
-                        List<String> children = zooKeeper.getChildren(zkServerAddr.getServerNode(), true);
+                        List<String> children = zooKeeper.getChildren(zkConfig.getServerNode(), true);
                         System.out.println("当前节点"+children.size());
                         for (String child : children) {
 
                             Stat stat=new Stat();
 
 
-                            byte[] data = zooKeeper.getData(zkServerAddr.getServerNode()+"/"+child, false, stat);
+                            byte[] data = zooKeeper.getData(zkConfig.getServerNode()+"/"+child, false, stat);
 
                             roud.AddRpcNode(getNettyClient(data));
 
@@ -93,7 +98,7 @@ public class ZookeeperDisovery implements ServerDiscovery {
         return nettyClient;
     }
     public void InitRoud(ZookeeperConfig config){
-
+        //从zk中读取注册的rpc 服务
         try {
             zooKeeper = new ZooKeeper(config.getZkAddr(), 2000, new Watcher() {
                 @Override
