@@ -7,6 +7,8 @@
 - [客户端](https://github.com/adminoryuan/CheetRpc/blob/master/src/main/java/com/cheet/example/cli/Client.java)
 # 实现目标
 - [x] 多路复用
+- [x] 心跳
+- [x] 负载均衡
 - [x] 反射
 - [x] 注册中心支持
 - [x] 自定义协议
